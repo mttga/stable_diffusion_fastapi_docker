@@ -3,9 +3,10 @@
 This repo implements an API with FastAPI that is capable of generating images using Stable Diffusion. It could serve as a perfect starting point for implementing a custom backend stable-diffusion API with FastAPI. The schema of the API resembles the one. Everything you need is embedded in the Dockerfile, so you can just build the Docker image and start play with it.
 
 ### API request
-![api_request](https://i.ibb.co/VWKhx63/fastapi-request.png)
+![api_response](https://drive.google.com/uc?export=view&id=1foKdDAjY9-gjcrkpvnxPUoBvnJHcr8uI)
+
 ### API response
-![api_response](https://i.ibb.co/WKGX1Tj/fast-api-response.png)
+![api_request](https://drive.google.com/uc?export=view&id=1d2F1z6NA6NCi0YaSBMEpEpBnmpB9JdPP)
 
 
 ## API Request Schema
