@@ -3,9 +3,10 @@
 This repo implements an API with FastAPI that is capable of generating images using Stable Diffusion. It could serve as a perfect starting point for implementing a custom backend stable-diffusion API with FastAPI. The schema of the API resembles the one. Everything you need is embedded in the Dockerfile, so you can just build the Docker image and start play with it.
 
 ### API request
-![api_request](https://i.ibb.co/VWKhx63/fastapi-request.png)
+![api_response](https://drive.google.com/uc?export=view&id=1foKdDAjY9-gjcrkpvnxPUoBvnJHcr8uI)
+
 ### API response
-![api_response](https://i.ibb.co/WKGX1Tj/fast-api-response.png)
+![api_request](https://drive.google.com/uc?export=view&id=1d2F1z6NA6NCi0YaSBMEpEpBnmpB9JdPP)
 
 
 ## API Request Schema
@@ -26,6 +27,8 @@ This API request schema is used to generate an image with stable diffusion based
   - number_of_images: an integer that represents the number of images to be generated.
   - seed: an integer that represents the seed for the random number generator used during the image generation process.
 
+The api returns a list of base64 encoded images.
+
 Example request:
 
 ```bash
@@ -45,6 +48,31 @@ curl -X 'POST' \
 ```
 
 With minimal work you can add Img2Img, impainting etc. requests.
+
+Example of usage:
+
+```python
+api_url = "http://localhost:80/generate/"
+
+request_body = {
+  "prompt": "renaissance painting of a penguin.",
+  "width": 768,
+  "height": 768,
+  "cfg_scale": 7,
+  "steps": 30,
+  "number_of_images": 4,
+  "seed": 208513106212
+}
+
+response = requests.post(api_url, json=request_body)
+def decode_image(img):
+    img = io.BytesIO(base64.b64decode(img))
+    img = Image.open(img)
+    return img
+
+images_base64 = response.json()['images']
+images = [decode_image(img) for img in images_base64]
+```
 
 ## How to use it
 

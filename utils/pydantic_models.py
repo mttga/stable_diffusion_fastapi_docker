@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Union
+from typing import Union, List
 
 class GenerateBody(BaseModel):
     prompt: str = Field(
@@ -8,13 +8,13 @@ class GenerateBody(BaseModel):
         description="The text prompt for generating the image."
     )
     width: int = Field(
-        default=512,
+        default=768,
         ge=512,
         le=1024,
         description="The width of the image."
     )
     height: int = Field(
-        default=512,
+        default=768,
         ge=512,
         le=1024,
         description="The width of the image."
@@ -42,3 +42,7 @@ class GenerateBody(BaseModel):
         example=208513106212,
         description="Random seed for generation."
     )
+
+class ImageResponse(BaseModel):
+    images: List[str] = Field(default=None, title="Image", description="The generated images in base64 format.")
+    parameters: dict

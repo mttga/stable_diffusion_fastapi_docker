@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Response
-from utils import GenerateBody, check_image_size
-from io import BytesIO
+from utils import check_image_size, image_to_base64
+from utils.pydantic_models import GenerateBody, ImageResponse
 
 # initialize Stable Diffusion Model
 from accelerate import Accelerator
@@ -11,21 +11,16 @@ model.prepare(accelerator)
 
 app = FastAPI()
 
-@app.post("/generate/",
-    responses = {
-        200: {
-            "content": {"image/png": {}}
-        }
-    },
-    response_class=Response
-)
+@app.post("/generate/")
 async def create_item(body: GenerateBody):
 
     check_image_size(body)
 
     # generate the image and save bits
     images = model.generate(**body.dict())
-    buffer = BytesIO()
-    images[0].save(buffer, format="png")
 
-    return Response(buffer.getvalue(), media_type="image/png")
+    # create return an Image response with base64 encoded images
+    return ImageResponse(
+        images=[image_to_base64(image) for image in images],
+        parameters=body.dict()
+    )
