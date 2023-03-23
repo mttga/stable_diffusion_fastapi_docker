@@ -6,10 +6,6 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-# download the models
-COPY models tmp/models
-RUN python -c "from tmp.models.download_weigths import MODEL_REGISTRY"
-
 # copy the accelerate-configuration file
 COPY /accelerate_config.yaml /.cache/hugginface/accelerate/default_config.yaml
 

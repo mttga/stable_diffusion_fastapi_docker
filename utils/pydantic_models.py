@@ -1,23 +1,11 @@
 from pydantic import BaseModel, Field
 from typing import Union, List
 
-class GenerateBody(BaseModel):
+class BaseBody(BaseModel):
     prompt: str = Field(
         ...,
         max_length=300,
         description="The text prompt for generating the image."
-    )
-    width: int = Field(
-        default=768,
-        ge=512,
-        le=1024,
-        description="The width of the image."
-    )
-    height: int = Field(
-        default=768,
-        ge=512,
-        le=1024,
-        description="The width of the image."
     )
     cfg_scale: int = Field(
         default=7,
@@ -41,6 +29,32 @@ class GenerateBody(BaseModel):
         default=None,
         example=208513106212,
         description="Random seed for generation."
+    )
+
+class Text2ImageBody(BaseBody):
+    width: int = Field(
+        default=768,
+        ge=512,
+        le=1024,
+        description="The width of the image."
+    )
+    height: int = Field(
+        default=768,
+        ge=512,
+        le=1024,
+        description="The width of the image."
+    )
+
+class Img2ImgBody(BaseBody):
+    image: str = Field(
+        ...,
+        description="Base64 encoded string of the image."
+    )
+
+class InpaintingBody(Img2ImgBody):
+    mask_image: str = Field(
+        ...,
+        description="Base64 encoded string of the mask image."
     )
 
 class ImageResponse(BaseModel):

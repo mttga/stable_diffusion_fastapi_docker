@@ -1,4 +1,4 @@
-sudo docker run -d --gpus=all --ipc=host \
+sudo docker run -it --gpus=all --ipc=host \
  -v $(pwd):/app \
  -p 80:80 \
- dream:v0 \
+ dream:v0
