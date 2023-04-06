@@ -1,5 +1,5 @@
 # change the base image with the one that contains the cuda toolkit compatible with your machine
-FROM pytorch/pytorch:1.13.1-cuda11.6-cudnn8-devel
+FROM pytorch/pytorch:2.0.0-cuda11.7-cudnn8-runtime
 WORKDIR /app
 
 # install requirements

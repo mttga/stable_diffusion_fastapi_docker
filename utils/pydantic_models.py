@@ -7,6 +7,11 @@ class BaseBody(BaseModel):
         max_length=300,
         description="The text prompt for generating the image."
     )
+    negative_prompt: Union[str, None] = Field(
+        default=None,
+        max_length=300,
+        description="Negative prompt for what you don't want in the image."
+    )
     cfg_scale: int = Field(
         default=7,
         ge=0,

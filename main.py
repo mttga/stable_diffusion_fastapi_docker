@@ -7,7 +7,7 @@ from accelerate import Accelerator
 from models import DefaultModel, MODEL_REGISTRY
 
 accelerator = Accelerator()
-text2img_model  = DefaultModel(MODEL_REGISTRY['text2img']).prepare(accelerator)
+text2img_model  = DefaultModel(MODEL_REGISTRY['dream_mtt']).prepare(accelerator)
 img2img_model   = DefaultModel(MODEL_REGISTRY['img2img']).prepare(accelerator)
 inpaiting_model = DefaultModel(MODEL_REGISTRY['inpainting']).prepare(accelerator)
 

@@ -35,6 +35,7 @@ class DefaultModel:
     def generate(
         self,
         prompt:str,
+        negative_prompt:str,
         cfg_scale:int,
         steps:int,
         number_of_images:int,
@@ -47,6 +48,7 @@ class DefaultModel:
         # prepare the pipe arguments
         kwargs = {
             'prompt': prompt,
+            'negative_prompt': negative_prompt if len(negative_prompt) else None,
             'generator': torch.Generator(device='cuda').manual_seed(seed),
             'num_images_per_prompt': number_of_images,
             'num_inference_steps': steps,
